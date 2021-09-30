@@ -1,0 +1,40 @@
+unsigned long myTime;
+int myTimeS;
+
+int N = 255; //max power
+int tmax = 3; //time to max speed
+float a = -N / pow(tmax,2); //a value of quadratic
+int Speed;
+bool maxSpeed;
+
+void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  Serial.print("Time: ");
+  myTime = millis();
+  myTimeS = myTime/1000;
+  Speed = accfunc(myTimeS);
+  
+  if (Speed == N){
+    maxSpeed = true;
+  }else{
+    maxSpeed = false;
+  }
+  
+  Serial.print(Speed);
+  Serial.print(" ");
+  Serial.println(myTimeS); // prints time since program started
+  delay(500);          // wait a second so as not to send massive amounts of data
+}
+
+
+int accfunc(int Time){
+  if (maxSpeed == true){
+    return N;
+  }else{
+    
+  return a * pow(Time-tmax,2) + N;
+  
+}
+}
